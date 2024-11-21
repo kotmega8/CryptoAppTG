@@ -1,6 +1,27 @@
 {
-  "null": {
+  "545310559": {
     "energy": 100,
-    "balance": 0
+    "balance": 109,
+    "lastUpdate": 1732227340040
+  },
+  "611110627": {
+    "energy": 100,
+    "balance": 117,
+    "lastUpdate": 1732226859695
+  },
+  "1247500223": {
+    "energy": 100,
+    "balance": 52,
+    "lastUpdate": 1732227129829
+  },
+  "1331642140": {
+    "energy": 100,
+    "balance": 10,
+    "lastUpdate": 1732226728550
+  },
+  "1729649985": {
+    "energy": 100,
+    "balance": 22935,
+    "lastUpdate": 1732227069818
   }
 }

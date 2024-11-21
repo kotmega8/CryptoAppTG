@@ -4,19 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Energy Clicker</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div class="circle" id="clickCircle">
-        <div class="circle-text" id="circleText">Click!</div>
+    <div class="game-container">
+        <div class="circle" id="clickCircle"></div>
+        
+        <div class="stats-container">
+            <div class="energy-bar-container">
+                <div class="energy-bar">
+                    <div class="energy-fill" id="energyFill"></div>
+                </div>
+                <div class="energy-text">
+                    ⚡ <span id="energyValue">100</span>/100
+                </div>
+            </div>
+            <div class="balance">
+                💰 <span id="balanceValue">0</span>
+            </div>
+        </div>
     </div>
-    <div class="energy-bar-container">
-        <div class="energy-bar" id="energyBar" style="width: 100%;"></div>
-        <div class="energy-bar-text">⚡ <span id="energyValue">100</span>/100</div>
-    </div>
-    <div class="balance">
-        💰 Баланс: <span id="balance">0</span>
-    </div>
-    <script src="script.js"></script>
+    <script src="js/game.js"></script>
 </body>
 </html>
