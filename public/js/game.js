@@ -17,6 +17,7 @@ fetch(`/getData?userId=${userId}`)
     .then(data => {
         energy = data.energy;
         balance = data.balance;
+        maxEnergy = data.maxEnergy || 100;
         updateUI();
     });
 
@@ -46,8 +47,8 @@ function shrinkCircle() {
 }
 
 function updateUI() {
-    energyFill.style.width = `${energy}%`;
-    energyValue.textContent = energy;
+    energyFill.style.width = `${(energy / maxEnergy) * 100}%`;
+    energyValue.textContent = `${energy}/${maxEnergy}`;
     balanceValue.textContent = balance;
 }
 
@@ -57,7 +58,7 @@ function saveData() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userId, energy, balance })
+        body: JSON.stringify({ userId, energy, balance, maxEnergy })
     });
 }
 
