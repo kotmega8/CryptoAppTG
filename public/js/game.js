@@ -8,6 +8,9 @@ const circle = document.getElementById('clickCircle');
 const energyFill = document.getElementById('energyFill');
 const energyValue = document.getElementById('energyValue');
 const balanceValue = document.getElementById('balanceValue');
+const shopBtn = document.getElementById('shopBtn');
+const farmBtn = document.getElementById('farmBtn');
+const profileBtn = document.getElementById('profileBtn');
 
 fetch(`/getData?userId=${userId}`)
     .then(response => response.json())
@@ -65,3 +68,15 @@ setInterval(() => {
         saveData();
     }
 }, 2000);
+
+farmBtn.addEventListener('click', () => {
+    location.reload();
+});
+
+shopBtn.addEventListener('click', () => {
+    // Will be implemented later
+});
+
+profileBtn.addEventListener('click', () => {
+    // Will be implemented later
+});
