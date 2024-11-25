@@ -62,7 +62,7 @@ function saveData() {
 }
 
 setInterval(() => {
-    if (energy < 100) {
+    if (energy < userData.maxEnergy) {
         energy++;
         updateUI();
         saveData();
@@ -74,7 +74,7 @@ farmBtn.addEventListener('click', () => {
 });
 
 shopBtn.addEventListener('click', () => {
-    // Will be implemented later
+    window.location.href = '/shop.html';
 });
 
 profileBtn.addEventListener('click', () => {

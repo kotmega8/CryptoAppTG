@@ -55,7 +55,9 @@ app.get('/getData', async (req, res) => {
     if (!database[userId]) {
         database[userId] = {
             energy: 100,
+            maxEnergy: 100,
             balance: 0,
+            energyUpgrades: 0,
             lastUpdate: Date.now()
         };
         await writeDatabase(database);
@@ -71,7 +73,9 @@ app.post('/saveData', async (req, res) => {
     // Сохраняем данные конкретного пользователя
     database[userId] = {
         energy,
+        maxEnergy,
         balance,
+        energyUpgrades,
         lastUpdate: Date.now()
     };
 
