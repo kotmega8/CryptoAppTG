@@ -70,14 +70,26 @@ app.post('/saveData', async (req, res) => {
     const { userId, energy, balance, maxEnergy, energyUpgrades } = req.body;
     const database = await readDatabase();
 
-    // Сохраняем данные конкретного пользователя
-    database[userId] = {
-        energy,
-        maxEnergy: maxEnergy || 100,
-        balance,
-        energyUpgrades: energyUpgrades || 0,
-        lastUpdate: Date.now()
-    };
+    // Если пользователь уже есть в базе, обновляем только изменённые поля
+    if (database[userId]) {
+        database[userId] = {
+            ...database[userId], // Существующие данные
+            energy: energy ?? database[userId].energy, // Обновляем только если значение есть
+            balance: balance ?? database[userId].balance,
+            maxEnergy: maxEnergy ?? database[userId].maxEnergy,
+            energyUpgrades: energyUpgrades ?? database[userId].energyUpgrades,
+            lastUpdate: Date.now() // Обновляем метку времени
+        };
+    } else {
+        // Если пользователя нет, создаём нового
+        database[userId] = {
+            energy: energy || 100,
+            maxEnergy: maxEnergy || 100,
+            balance: balance || 0,
+            energyUpgrades: energyUpgrades || 0,
+            lastUpdate: Date.now()
+        };
+    }
 
     await writeDatabase(database);
     res.json({ success: true });

@@ -1,5 +1,5 @@
-let tg = window.Telegram.WebApp;
-let userId = tg.initDataUnsafe.user.id;
+let tg = window.Telegram?.WebApp || { initDataUnsafe: { user: { id: 'test-user' } } };
+let userId = tg?.initDataUnsafe?.user?.id || 'test-user';
 let energy = 100;
 let maxEnergy = 100;
 let balance = 0;

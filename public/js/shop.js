@@ -1,7 +1,5 @@
-let tg = window.Telegram.WebApp;
-let userId = tg.initDataUnsafe.user.id;
-let upgradePrice = 100;
-let upgradePurchases = 0;
+let tg = window.Telegram?.WebApp || { initDataUnsafe: { user: { id: 'test-user' } } };
+let userId = tg?.initDataUnsafe?.user?.id || 'test-user';
 
 const buyEnergyUpgrade = document.getElementById('buyEnergyUpgrade');
 const energyUpgradePrice = document.getElementById('energyUpgradePrice');
@@ -9,23 +7,26 @@ const shopBtn = document.getElementById('shopBtn');
 const farmBtn = document.getElementById('farmBtn');
 const profileBtn = document.getElementById('profileBtn');
 
-// Load user data
-fetch(`/getData?userId=${userId}`)
-    .then(response => response.json())
-    .then(data => {
-        upgradePurchases = data.energyUpgrades || 0;
-        upgradePrice = Math.floor(100 * Math.pow(2.25, upgradePurchases));
-        energyUpgradePrice.textContent = upgradePrice;
-        updateShopUI();
-    });
+function calculateUpgradePrice(purchases) {
+    return Math.floor(100 * Math.pow(2.25, purchases));
+}
 
-function updateShopUI() {
-    energyUpgradePrice.textContent = upgradePrice;
+// Load and display initial data
+async function loadUserData() {
+    const response = await fetch(`/getData?userId=${userId}`);
+    const data = await response.json();
+    updateShopUI(data.energyUpgrades || 0);
+}
+
+function updateShopUI(purchases) {
+    const price = calculateUpgradePrice(purchases);
     
-    if (upgradePurchases >= 10) {
+    if (purchases >= 10) {
         buyEnergyUpgrade.textContent = 'Продано';
         buyEnergyUpgrade.classList.add('sold');
         buyEnergyUpgrade.disabled = true;
+    } else {
+        energyUpgradePrice.textContent = price;
     }
 }
 
@@ -33,10 +34,13 @@ buyEnergyUpgrade.addEventListener('click', async () => {
     const response = await fetch(`/getData?userId=${userId}`);
     const userData = await response.json();
     
-    if (userData.balance >= upgradePrice && upgradePurchases < 10) {
-        userData.balance -= upgradePrice;
+    const currentUpgrades = userData.energyUpgrades || 0;
+    const price = calculateUpgradePrice(currentUpgrades);
+    
+    if (userData.balance >= price && currentUpgrades < 10) {
+        userData.balance -= price;
         userData.maxEnergy = (userData.maxEnergy || 100) + 100;
-        userData.energyUpgrades = (userData.energyUpgrades || 0) + 1;
+        userData.energyUpgrades = currentUpgrades + 1;
         
         await fetch('/saveData', {
             method: 'POST',
@@ -52,21 +56,14 @@ buyEnergyUpgrade.addEventListener('click', async () => {
             })
         });
 
-        upgradePurchases++;
-        upgradePrice = Math.floor(100 * Math.pow(2.25, upgradePurchases));
-        updateShopUI();
+        updateShopUI(userData.energyUpgrades);
     }
 });
 
 // Navigation
-shopBtn.addEventListener('click', () => {
-    window.location.href = '/shop.html';
-});
+shopBtn.addEventListener('click', () => window.location.href = '/shop.html');
+farmBtn.addEventListener('click', () => window.location.href = '/');
+profileBtn.addEventListener('click', () => window.location.href = '/profile.html');
 
-farmBtn.addEventListener('click', () => {
-    window.location.href = '/';
-});
-
-profileBtn.addEventListener('click', () => {
-    window.location.href = '/profile.html';
-});
+// Initialize
+loadUserData();

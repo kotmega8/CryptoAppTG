@@ -1,4 +1,4 @@
-let tg = window.Telegram.WebApp;
+let tg = window.Telegram.WebApp || { initDataUnsafe: { user: { id: 'null' } } };
 let user = tg.initDataUnsafe.user;
 
 const userAvatar = document.getElementById('userAvatar');
