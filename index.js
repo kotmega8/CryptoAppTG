@@ -33,8 +33,8 @@ async function updateAllPlayersEnergy() {
         const timeDiff = currentTime - lastUpdateTime;
         const energyToAdd = Math.floor(timeDiff / 2000); // 2000мс = 2 секунды
 
-        if (energyToAdd > 0 && player.energy < 100) {
-            player.energy = Math.min(100, player.energy + energyToAdd);
+        if (energyToAdd > 0 && player.energy < player.maxEnergy) {
+            player.energy = Math.min(player.maxEnergy, player.energy + energyToAdd);
             player.lastUpdate = currentTime;
             hasUpdates = true;
         }
