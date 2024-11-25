@@ -78,5 +78,5 @@ shopBtn.addEventListener('click', () => {
 });
 
 profileBtn.addEventListener('click', () => {
-    // Will be implemented later
+    window.location.href = '/profile.html';
 });
