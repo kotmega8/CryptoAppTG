@@ -15,16 +15,17 @@ fetch(`/getData?userId=${userId}`)
     .then(data => {
         upgradePurchases = data.energyUpgrades || 0;
         upgradePrice = Math.floor(100 * Math.pow(2.25, upgradePurchases));
+        energyUpgradePrice.textContent = upgradePrice;
         updateShopUI();
     });
 
 function updateShopUI() {
+    energyUpgradePrice.textContent = upgradePrice;
+    
     if (upgradePurchases >= 10) {
         buyEnergyUpgrade.textContent = 'Продано';
         buyEnergyUpgrade.classList.add('sold');
         buyEnergyUpgrade.disabled = true;
-    } else {
-        energyUpgradePrice.textContent = upgradePrice;
     }
 }
 
