@@ -19,12 +19,12 @@ fetch(`/getData?userId=${userId}`)
     });
 
 function updateShopUI() {
-    energyUpgradePrice.textContent = upgradePrice;
-    
     if (upgradePurchases >= 10) {
         buyEnergyUpgrade.textContent = 'Продано';
         buyEnergyUpgrade.classList.add('sold');
         buyEnergyUpgrade.disabled = true;
+    } else {
+        energyUpgradePrice.textContent = upgradePrice;
     }
 }
 
@@ -44,6 +44,7 @@ buyEnergyUpgrade.addEventListener('click', async () => {
             },
             body: JSON.stringify({
                 userId,
+                energy: userData.energy,
                 balance: userData.balance,
                 maxEnergy: userData.maxEnergy,
                 energyUpgrades: userData.energyUpgrades

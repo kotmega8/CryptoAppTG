@@ -46,7 +46,7 @@ function shrinkCircle() {
 }
 
 function updateUI() {
-    const percentage = (energy / maxEnergy) * 100;
+    const percentage = Math.min((energy / maxEnergy) * 100, 100);
     energyFill.style.width = `${percentage}%`;
     energyValue.textContent = `${energy}/${maxEnergy}`;
     balanceValue.textContent = balance;
