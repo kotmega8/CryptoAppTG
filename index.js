@@ -67,15 +67,15 @@ app.get('/getData', async (req, res) => {
 });
 
 app.post('/saveData', async (req, res) => {
-    const { userId, energy, balance } = req.body;
+    const { userId, energy, balance, maxEnergy, energyUpgrades } = req.body;
     const database = await readDatabase();
 
     // Сохраняем данные конкретного пользователя
     database[userId] = {
         energy,
-        maxEnergy,
+        maxEnergy: maxEnergy || 100,
         balance,
-        energyUpgrades,
+        energyUpgrades: energyUpgrades || 0,
         lastUpdate: Date.now()
     };
 
@@ -83,7 +83,6 @@ app.post('/saveData', async (req, res) => {
     res.json({ success: true });
 });
 
-// Запускаем обновление энергии каждые 30 секунд
 setInterval(updateAllPlayersEnergy, 30000);
 
 app.listen(port, () => {
