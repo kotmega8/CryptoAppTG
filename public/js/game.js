@@ -1,6 +1,7 @@
 let tg = window.Telegram.WebApp;
 let userId = tg.initDataUnsafe.user.id;
 let energy = 100;
+let maxEnergy = 100;
 let balance = 0;
 let circleSize = 1;
 
@@ -21,7 +22,6 @@ fetch(`/getData?userId=${userId}`)
         updateUI();
     });
 
-// Простой обработчик клика
 circle.addEventListener('click', (e) => {
     e.preventDefault();
     if (energy <= 0) return;
@@ -34,7 +34,6 @@ circle.addEventListener('click', (e) => {
     updateUI();
     saveData();
 
-    // Запускаем анимацию уменьшения
     setTimeout(() => shrinkCircle(), 100);
 });
 
@@ -47,7 +46,8 @@ function shrinkCircle() {
 }
 
 function updateUI() {
-    energyFill.style.width = `${(energy / maxEnergy) * 100}%`;
+    const percentage = (energy / maxEnergy) * 100;
+    energyFill.style.width = `${percentage}%`;
     energyValue.textContent = `${energy}/${maxEnergy}`;
     balanceValue.textContent = balance;
 }
@@ -63,7 +63,7 @@ function saveData() {
 }
 
 setInterval(() => {
-    if (energy < userData.maxEnergy) {
+    if (energy < maxEnergy) {
         energy++;
         updateUI();
         saveData();
