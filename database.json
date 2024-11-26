@@ -1,4 +1,18 @@
 {
+  "611110627": {
+    "energy": 100,
+    "maxEnergy": 100,
+    "balance": 10,
+    "energyUpgrades": 0,
+    "lastUpdate": 1732617888591
+  },
+  "1331642140": {
+    "energy": 100,
+    "maxEnergy": 100,
+    "balance": 1000,
+    "energyUpgrades": 0,
+    "lastUpdate": 1732617888591
+  },
   "1729649985": {
     "energy": 100,
     "maxEnergy": 100,
@@ -6,11 +20,18 @@
     "energyUpgrades": 0,
     "lastUpdate": 1732617888591
   },
-  "test-user": {
-    "energy": 200,
-    "maxEnergy": 200,
-    "balance": 31,
+  "7446094323": {
+    "energy": 100,
+    "maxEnergy": 100,
+    "balance": 100,
     "energyUpgrades": 0,
-    "lastUpdate": 1732630108486
+    "lastUpdate": 1732617888591
+  },
+  "test-user": {
+    "energy": 300,
+    "maxEnergy": 300,
+    "balance": 1,
+    "energyUpgrades": 1,
+    "lastUpdate": 1732631406755
   }
 }
