@@ -10,12 +10,19 @@ window.initProfile = function() {
 };
 
 async function loadUserRank() {
-    const userId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id || 'test-user';
+    const tg = window.Telegram?.WebApp;
+    const userId = tg?.initDataUnsafe?.user?.id?.toString() || 'test-user';
+    
+    console.log('Current userId:', userId); // For debugging
+    
     const response = await fetch('/getLeaderboard');
     const leaderboard = await response.json();
     
-    // Find user position in complete leaderboard
-    const userPosition = leaderboard.findIndex(entry => entry.userId === userId) + 1;
+    console.log('Leaderboard:', leaderboard); // For debugging
+    
+    const userPosition = leaderboard.findIndex(entry => entry.userId.toString() === userId) + 1;
+    
+    console.log('Found position:', userPosition); // For debugging
     
     if (userPosition > 0) {
         userRank.textContent = `Место в рейтинге: ${userPosition}#`;
