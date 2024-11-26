@@ -8,6 +8,8 @@ app.use(express.json());
 
 const DB_PATH = './database.json';
 const BOT_TOKEN = '8133870094:AAHVk73959rVMuFQHQGTxqCavJuQ8dTC0dw';
+let cachedLeaderboard = [];
+const CACHE_DURATION = 5 * 60 * 1000;
 
 async function readDatabase() {
     try {
@@ -107,11 +109,26 @@ app.post('/saveData', async (req, res) => {
     res.json({ success: true });
 });
 
-app.get('/getLeaderboard', async (req, res) => {
+async function updateLeaderboardCache() {
     const database = await readDatabase();
-    res.json(database);
+    
+    // Filter users with balance > 0 and format data
+    cachedLeaderboard = Object.entries(database)
+        .filter(([_, userData]) => userData.balance > 0)
+        .map(([userId, userData]) => ({
+            userId,
+            balance: userData.balance
+        }))
+        .sort((a, b) => b.balance - a.balance);
+}
+
+app.get('/getLeaderboard', (req, res) => {
+    res.json(cachedLeaderboard);
 });
 
+updateLeaderboardCache();
+
+setInterval(updateLeaderboardCache, CACHE_DURATION);
 setInterval(updateAllPlayersEnergy, 30000);
 
 app.listen(port, () => {
