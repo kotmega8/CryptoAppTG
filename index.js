@@ -62,7 +62,8 @@ app.post('/create-stars-payment', async (req, res) => {
                 title: "Поддержка Energy Clicker",
                 description: "Отправка Stars разработчику",
                 payload: `stars_payment_${userId}`,
-                currency: "STARS",
+                provider_token: "",
+                currency: "XTR",
                 prices: [{
                     label: "Stars",
                     amount: amount * 100
