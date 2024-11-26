@@ -7,10 +7,10 @@
     "lastUpdate": 1732611423105
   },
   "test-user": {
-    "energy": 100,
-    "maxEnergy": 100,
-    "balance": 0,
-    "energyUpgrades": 0,
-    "lastUpdate": 1732611396450
+    "energy": 88,
+    "maxEnergy": 200,
+    "balance": 9,
+    "energyUpgrades": 1,
+    "lastUpdate": 1732612865595
   }
 }
