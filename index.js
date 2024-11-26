@@ -7,6 +7,7 @@ app.use(express.static('public'));
 app.use(express.json());
 
 const DB_PATH = './database.json';
+const BOT_TOKEN = '8133870094:AAHVk73959rVMuFQHQGTxqCavJuQ8dTC0dw';
 
 async function readDatabase() {
     try {
@@ -44,6 +45,17 @@ async function updateAllPlayersEnergy() {
         await writeDatabase(database);
     }
 }
+
+app.get('/getTelegramUser', async (req, res) => {
+    const userId = req.query.userId;
+    try {
+        const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getChat?chat_id=${userId}`);
+        const data = await response.json();
+        res.json(data.result);
+    } catch (error) {
+        res.json({ first_name: `User ${userId}` });
+    }
+});
 
 app.get('/getData', async (req, res) => {
     const userId = req.query.userId;
@@ -93,6 +105,11 @@ app.post('/saveData', async (req, res) => {
 
     await writeDatabase(database);
     res.json({ success: true });
+});
+
+app.get('/getLeaderboard', async (req, res) => {
+    const database = await readDatabase();
+    res.json(database);
 });
 
 setInterval(updateAllPlayersEnergy, 30000);

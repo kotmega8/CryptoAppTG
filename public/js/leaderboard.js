@@ -2,40 +2,55 @@ function initLeaderboard() {
     let tg = window.Telegram?.WebApp || { initDataUnsafe: { user: { id: 'test-user' } } };
     let currentUserId = tg?.initDataUnsafe?.user?.id || 'test-user';
 
-    fetch('/getData')
+    fetch('/getLeaderboard')
         .then(response => response.json())
         .then(async data => {
             const leaderboardList = document.getElementById('leaderboardList');
             leaderboardList.innerHTML = '';
 
-            // Convert data to proper user array
-            const users = Object.entries(data).map(([userId, userData]) => ({
-                userId: userId,
-                balance: userData.balance || 0
-            }));
+            const users = [];
+            for (const [userId, userData] of Object.entries(data)) {
+                users.push({
+                    userId: userId,
+                    balance: userData.balance || 0
+                });
+            }
 
-            // Sort by balance and get top 10
             const topUsers = users
                 .sort((a, b) => b.balance - a.balance)
                 .slice(0, 10);
 
-            // Process each user
-            for (let user of topUsers) {
+            for (let i = 0; i < topUsers.length; i++) {
+                const user = topUsers[i];
+                let userName = 'Unknown User';
+
                 if (user.userId === 'test-user') {
-                    user.name = 'Test User';
+                    userName = 'Test User';
                 } else {
                     try {
-                        // Fetch Telegram user info
-                        const response = await fetch(`/getTelegramUserInfo?userId=${user.userId}`);
-                        const telegramInfo = await response.json();
-                        user.name = `${telegramInfo.first_name} ${telegramInfo.last_name || ''}`.trim();
+                        const response = await fetch(`/getTelegramUser?userId=${user.userId}`);
+                        const userData = await response.json();
+                        userName = userData.first_name;
+                        if (userData.last_name) {
+                            userName += ` ${userData.last_name}`;
+                        }
                     } catch (error) {
-                        user.name = `User ${user.userId}`;
+                        userName = `User ${user.userId}`;
                     }
                 }
 
                 const item = document.createElement('div');
                 item.className = 'leaderboard-item';
+                
+                if (i === 0) {
+                    item.classList.add('gold');
+                }
+                if (i === 1) {
+                    item.classList.add('silver');
+                }
+                if (i === 2) {
+                    item.classList.add('bronze');
+                }
                 
                 if (user.userId === currentUserId) {
                     item.classList.add('current-user');
@@ -43,8 +58,8 @@ function initLeaderboard() {
 
                 item.innerHTML = `
                     <div class="leader-info">
-                        <span class="leader-position">${topUsers.indexOf(user) + 1}</span>
-                        <span class="leader-name">${user.name}</span>
+                        <span class="leader-position">${i + 1}</span>
+                        <span class="leader-name">${userName}</span>
                     </div>
                     <span class="leader-balance">💰 ${user.balance.toLocaleString()}</span>
                 `;

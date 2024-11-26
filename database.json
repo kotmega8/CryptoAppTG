@@ -1,23 +1,16 @@
 {
-  "1729649985": {
-    "energy": 100,
-    "maxEnergy": 100,
-    "balance": 16650040,
-    "energyUpgrades": 0,
-    "lastUpdate": 1732611423105
-  },
   "test-user": {
     "energy": 200,
     "maxEnergy": 200,
-    "balance": 12,
-    "energyUpgrades": 1,
-    "lastUpdate": 1732615179347
+    "balance": 26,
+    "energyUpgrades": 0,
+    "lastUpdate": 1732617957508
   },
-  "undefined": {
+  "1729649985": {
     "energy": 100,
     "maxEnergy": 100,
-    "balance": 0,
+    "balance": 1000000,
     "energyUpgrades": 0,
-    "lastUpdate": 1732615778592
+    "lastUpdate": 1732617888591
   }
 }
