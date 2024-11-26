@@ -83,39 +83,44 @@ body {
     margin-top: 0.5rem;
 }
 
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem; /* Уменьшили padding */
+.nav-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    padding: clamp(0.3rem, 2vw, 0.5rem);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    flex: 1;
+    text-align: center;
+    min-width: 0;
     display: flex;
-    justify-content: space-evenly; /* Равномерное распределение кнопок */
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
 }
 
 .nav-button {
     background: none;
     border: none;
     color: white;
-    font-size: 1.2rem; /* Уменьшили размер шрифта */
-    padding: 0.5rem 1rem; /* Уменьшили отступы */
-    flex: 1; /* Кнопки занимают равное пространство */
-    max-width: 50px; /* Ограничиваем ширину кнопок */
-    text-align: center; /* Центрируем содержимое */
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    padding: clamp(0.3rem, 2vw, 0.5rem);
     cursor: pointer;
     transition: opacity 0.3s ease;
-}
-
-.nav-button:hover {
-    opacity: 0.8;
+    flex: 1;
+    text-align: center;
+    min-width: 0;
 }
 
 .nav-button.active {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
+    margin: -2px;
+}
+
+.nav-button:hover {
+    opacity: 0.8;
 }
 
 .profile-container {
