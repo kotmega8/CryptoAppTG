@@ -66,7 +66,7 @@ app.post('/create-stars-payment', async (req, res) => {
                 currency: "XTR",
                 prices: [{
                     label: "Stars",
-                    amount: amount * 100
+                    amount: amount * 1
                 }]
             })
         });
