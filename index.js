@@ -84,18 +84,16 @@ app.post('/saveData', async (req, res) => {
     const { userId, energy, balance, maxEnergy, energyUpgrades } = req.body;
     const database = await readDatabase();
 
-    // Если пользователь уже есть в базе, обновляем только изменённые поля
     if (database[userId]) {
         database[userId] = {
-            ...database[userId], // Существующие данные
-            energy: energy ?? database[userId].energy, // Обновляем только если значение есть
+            ...database[userId],
+            energy: energy ?? database[userId].energy,
             balance: balance ?? database[userId].balance,
             maxEnergy: maxEnergy ?? database[userId].maxEnergy,
             energyUpgrades: energyUpgrades ?? database[userId].energyUpgrades,
-            lastUpdate: Date.now() // Обновляем метку времени
+            lastUpdate: Date.now()
         };
     } else {
-        // Если пользователя нет, создаём нового
         database[userId] = {
             energy: energy || 100,
             maxEnergy: maxEnergy || 100,
@@ -106,8 +104,10 @@ app.post('/saveData', async (req, res) => {
     }
 
     await writeDatabase(database);
+    await updateLeaderboardCache(); // Update cache immediately after saving
     res.json({ success: true });
 });
+
 
 async function updateLeaderboardCache() {
     const database = await readDatabase();
