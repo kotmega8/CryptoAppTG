@@ -48,6 +48,41 @@ async function updateAllPlayersEnergy() {
     }
 }
 
+// Новая функция для генерации инвойса с оплатой через Stars
+app.post('/generate-invoice', async (req, res) => {
+    const { amount, title, description } = req.body;
+
+    if (!amount || !title || !description) {
+        return res.status(400).json({ error: 'Некорректные данные для оплаты' });
+    }
+
+    try {
+        const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendInvoice`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: req.query.userId, // ID пользователя, который инициирует оплату
+                title,
+                description,
+                payload: JSON.stringify({ userId: req.query.userId }), // Полезная нагрузка для валидации
+                provider_token: PROVIDER_TOKEN, // Замените на токен Stars, если требуется
+                currency: 'XTR', // Используем Stars (XTR) как валюту
+                prices: [{ label: title, amount: amount * 100 }], // Telegram требует сумму в минимальных единицах
+            }),
+        });
+
+        const data = await response.json();
+
+        if (data.ok) {
+            res.json({ invoiceLink: data.result.invoice_url });
+        } else {
+            throw new Error(data.description || 'Ошибка при создании инвойса');
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 app.get('/getTelegramUser', async (req, res) => {
     const userId = req.query.userId;
     try {
