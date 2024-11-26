@@ -30,8 +30,8 @@
   "test-user": {
     "energy": 300,
     "maxEnergy": 300,
-    "balance": 1,
+    "balance": 2,
     "energyUpgrades": 1,
-    "lastUpdate": 1732631406755
+    "lastUpdate": 1732651645729
   }
 }

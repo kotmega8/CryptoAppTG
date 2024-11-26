@@ -1,37 +1,35 @@
 function initSomething() {
     const payStarsBtn = document.getElementById('payStarsBtn');
-
+    
     payStarsBtn.addEventListener('click', async () => {
         try {
-            // Запрос к вашему серверу для получения ссылки на оплату
-            const response = await fetch('/generate-invoice', {
+            // Запрос к серверу для создания платежа
+            const response = await fetch('/create-stars-payment', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    amount: 5, // Сумма оплаты
-                    title: "Поддержка Energy Clicker",
-                    description: "Отправить 5 Stars разработчику"
-                }),
+                    userId: tg.initDataUnsafe.user.id,
+                    amount: 5
+                })
             });
-
-            if (!response.ok) {
-                throw new Error(`Ошибка сервера: ${response.statusText}`);
+            
+            const data = await response.json();
+            
+            // Открываем платеж через Telegram Web App
+            if (data.payment_link) {
+                window.Telegram.WebApp.openInvoice(data.payment_link, {
+                    callback: (status) => {
+                        if (status === 'paid') {
+                            console.log('Stars payment successful!');
+                            // Здесь можно добавить логику после успешной оплаты
+                        }
+                    }
+                });
             }
-
-            const { invoiceLink } = await response.json();
-
-            // Используем Telegram Web App SDK для открытия инвойса
-            Telegram.WebApp.openInvoice(invoiceLink, (status) => {
-                if (status === "paid") {
-                    console.log("Оплата успешно проведена");
-                } else {
-                    console.error("Оплата не завершена или отменена");
-                }
-            });
         } catch (error) {
-            console.error('Ошибка при вызове оплаты:', error);
+            console.log('Error creating payment:', error);
         }
     });
 }
