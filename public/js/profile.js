@@ -1,38 +1,24 @@
-let tg = window.Telegram.WebApp || { initDataUnsafe: { user: { id: 'null' } } };
-let user = tg.initDataUnsafe.user;
-
 const userAvatar = document.getElementById('userAvatar');
 const userName = document.getElementById('userName');
-const shopBtn = document.getElementById('shopBtn');
-const farmBtn = document.getElementById('farmBtn');
-const profileBtn = document.getElementById('profileBtn');
 
-const pages = {
-    farm: document.getElementById('farm-page'),
-    shop: document.getElementById('shop-page'),
-    profile: document.getElementById('profile-page')
+// Initialize profile function
+window.initProfile = function() {
+    console.log('Profile init called');
+    loadProfileData();
 };
 
-function switchPage(pageId) {
-    Object.values(pages).forEach(page => {
-        page.classList.remove('active');
-    });
-    
-    pages[pageId].classList.add('active');
-    
-    [farmBtn, shopBtn, profileBtn].forEach(btn => btn.classList.remove('active'));
-    document.getElementById(`${pageId}Btn`).classList.add('active');
+function loadProfileData() {
+    console.log('Loading profile data');
+    // Get user data from Telegram WebApp
+    const user = window.Telegram?.WebApp?.initDataUnsafe?.user || {
+        first_name: 'Test User',
+        photo_url: 'https://via.placeholder.com/120?text=No+Photo'
+    };
+
+    // Update UI with user data
+    userName.textContent = user.first_name;
+    userAvatar.src = user.photo_url || 'https://via.placeholder.com/120?text=No+Photo';
 }
 
-// Set user data
-userName.textContent = user.first_name;
-if (user.photo_url) {
-    userAvatar.src = user.photo_url;
-} else {
-    userAvatar.src = 'https://via.placeholder.com/120?text=No+Photo';
-}
-
-// Navigation handlers
-farmBtn.addEventListener('click', () => switchPage('farm'));
-shopBtn.addEventListener('click', () => switchPage('shop'));
-profileBtn.addEventListener('click', () => switchPage('profile'));
+// Initial load
+loadProfileData();

@@ -31,9 +31,10 @@ function switchPage(pageId) {
     [farmBtn, shopBtn, profileBtn].forEach(btn => btn.classList.remove('active'));
     document.getElementById(`${pageId}Btn`).classList.add('active');
 
-    if (pageId === 'shop' && window.initShop) {
-        console.log('Initializing shop...');
-        window.initShop();
+    if (pageId === 'shop') {
+        window.initShop && window.initShop();
+    } else if (pageId === 'profile') {
+        window.initProfile && window.initProfile();
     }
 }
 
