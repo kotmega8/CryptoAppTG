@@ -30,18 +30,27 @@ function switchPage(pageId) {
     
     pages[pageId].classList.add('active');
     
-    [farmBtn, shopBtn, profileBtn].forEach(btn => btn.classList.remove('active'));
-    document.getElementById(`${pageId}Btn`).classList.add('active');
+    const buttonIds = {
+        'farm': 'farmBtn',
+        'shop': 'shopBtn',
+        'profile': 'profileBtn',
+        'leaderboard': 'leaderbordBtn' 
+    };
+    
+    [farmBtn, shopBtn, profileBtn, leaderboardBtn].forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    document.getElementById(buttonIds[pageId]).classList.add('active');
 
     if (pageId === 'shop') {
         window.initShop && window.initShop();
     } else if (pageId === 'profile') {
         window.initProfile && window.initProfile();
     } else if (pageId === 'leaderboard') {
-        window.initLeaderboard && window.initLeaderboard();
+        initLeaderboard();
     }
 }
-
 
 fetch(`/getData?userId=${userId}`)
     .then(response => response.json())
