@@ -6,6 +6,7 @@
     <title>Energy Clicker</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/shopstyle.css">
+    <link rel="stylesheet" href="css/leaderboardstyle.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -34,7 +35,6 @@
         <div id="shop-page" class="page">
             <div class="shop-container">
                 <div class="shop-header">МАГАЗИН</div>
-                
                 <div class="shop-items">
                     <div class="shop-item">
                         <div class="item-info">
@@ -91,16 +91,28 @@
                 </div>
             </div>
         </div>
+
+        <!-- Страница лидеров -->
+        <div id="leaderboard-page" class="page">
+            <div class="leaderboard-container">
+                <div class="leaderboard-header">ЛИДЕРЫ</div>
+                <div class="leaderboard-list" id="leaderboardList">
+                    <!-- Leaders will be inserted here dynamically -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <nav class="bottom-nav">
         <button class="nav-button" id="shopBtn">🛍</button>
         <button class="nav-button active" id="farmBtn">💸</button>
         <button class="nav-button" id="profileBtn">👤</button>
+        <button class="nav-button" id="leaderbordBtn">🏆</button>
     </nav>
 
     <script src="js/game.js"></script>
     <script src="js/shop.js"></script>
     <script src="js/profile.js"></script>
+    <script src="js/leaderboard.js"></script>
 </body>
 </html>

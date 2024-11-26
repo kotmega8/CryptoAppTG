@@ -12,12 +12,14 @@ const balanceValue = document.getElementById('balanceValue');
 const shopBtn = document.getElementById('shopBtn');
 const farmBtn = document.getElementById('farmBtn');
 const profileBtn = document.getElementById('profileBtn');
+const leaderboardBtn = document.getElementById('leaderbordBtn');
 
 // Добавляем новый код для переключения страниц
 const pages = {
     farm: document.getElementById('farm-page'),
     shop: document.getElementById('shop-page'),
-    profile: document.getElementById('profile-page')
+    profile: document.getElementById('profile-page'),
+    leaderboard: document.getElementById('leaderboard-page')
 };
 
 function switchPage(pageId) {
@@ -35,8 +37,11 @@ function switchPage(pageId) {
         window.initShop && window.initShop();
     } else if (pageId === 'profile') {
         window.initProfile && window.initProfile();
+    } else if (pageId === 'leaderboard') {
+        window.initLeaderboard && window.initLeaderboard();
     }
 }
+
 
 fetch(`/getData?userId=${userId}`)
     .then(response => response.json())
@@ -99,3 +104,4 @@ setInterval(() => {
 farmBtn.addEventListener('click', () => switchPage('farm'));
 shopBtn.addEventListener('click', () => switchPage('shop'));
 profileBtn.addEventListener('click', () => switchPage('profile'));
+leaderboardBtn.addEventListener('click', () => switchPage('leaderboard'));
