@@ -13,13 +13,15 @@ const shopBtn = document.getElementById('shopBtn');
 const farmBtn = document.getElementById('farmBtn');
 const profileBtn = document.getElementById('profileBtn');
 const leaderboardBtn = document.getElementById('leaderbordBtn');
+const somethingBtn = document.getElementById('somethingBtn');
 
 // Добавляем новый код для переключения страниц
 const pages = {
     farm: document.getElementById('farm-page'),
     shop: document.getElementById('shop-page'),
     profile: document.getElementById('profile-page'),
-    leaderboard: document.getElementById('leaderboard-page')
+    leaderboard: document.getElementById('leaderboard-page'),
+    something: document.getElementById('something-page')
 };
 
 function switchPage(pageId) {
@@ -34,10 +36,11 @@ function switchPage(pageId) {
         'farm': 'farmBtn',
         'shop': 'shopBtn',
         'profile': 'profileBtn',
-        'leaderboard': 'leaderbordBtn' 
+        'leaderboard': 'leaderbordBtn',
+        'something': 'somethingBtn'
     };
     
-    [farmBtn, shopBtn, profileBtn, leaderboardBtn].forEach(btn => {
+    [farmBtn, shopBtn, profileBtn, leaderboardBtn, somethingBtn].forEach(btn => {
         btn.classList.remove('active');
     });
     
@@ -49,6 +52,8 @@ function switchPage(pageId) {
         window.initProfile && window.initProfile();
     } else if (pageId === 'leaderboard') {
         initLeaderboard();
+    } else if (pageId === 'something') {
+        window.initSomething && window.initSomething();
     }
 }
 
@@ -112,5 +117,6 @@ setInterval(() => {
 // Заменяем старые обработчики на новые
 farmBtn.addEventListener('click', () => switchPage('farm'));
 shopBtn.addEventListener('click', () => switchPage('shop'));
+somethingBtn.addEventListener('click', () => switchPage('something'));
 profileBtn.addEventListener('click', () => switchPage('profile'));
 leaderboardBtn.addEventListener('click', () => switchPage('leaderboard'));

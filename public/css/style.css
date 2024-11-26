@@ -128,7 +128,8 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 20vh;
 }
 
 .profile-card {
@@ -161,7 +162,7 @@ body {
 }
 
 .profile-rank {
-    color: white;
+    color: rgb(243, 235, 163);
     font-size: 1.2rem;
     margin-top: 0.5rem;
 }
