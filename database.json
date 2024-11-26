@@ -1,9 +1,9 @@
 {
-  "test-user": {
-    "energy": 597,
-    "maxEnergy": 1200,
-    "balance": 166540,
+  "1729649985": {
+    "energy": 612,
+    "maxEnergy": 1100,
+    "balance": 1665040,
     "energyUpgrades": 10,
-    "lastUpdate": 1732610823634
+    "lastUpdate": 1732610855106
   }
 }
