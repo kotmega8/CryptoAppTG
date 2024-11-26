@@ -89,9 +89,9 @@ body {
     left: 0;
     right: 0;
     background: rgba(255, 255, 255, 0.1);
-    padding: 0.8rem;
+    padding: 0.5rem; /* Уменьшили padding */
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-evenly; /* Равномерное распределение кнопок */
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
@@ -100,12 +100,13 @@ body {
     background: none;
     border: none;
     color: white;
-    font-size: 1.1rem;
-    width: 20%;
-    padding: 0.5rem 0;
+    font-size: 1.2rem; /* Уменьшили размер шрифта */
+    padding: 0.5rem 1rem; /* Уменьшили отступы */
+    flex: 1; /* Кнопки занимают равное пространство */
+    max-width: 50px; /* Ограничиваем ширину кнопок */
+    text-align: center; /* Центрируем содержимое */
     cursor: pointer;
     transition: opacity 0.3s ease;
-    text-align: center;
 }
 
 .nav-button:hover {
@@ -115,7 +116,6 @@ body {
 .nav-button.active {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    width: 20%;
 }
 
 .profile-container {
