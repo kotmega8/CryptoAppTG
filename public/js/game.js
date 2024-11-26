@@ -13,6 +13,30 @@ const shopBtn = document.getElementById('shopBtn');
 const farmBtn = document.getElementById('farmBtn');
 const profileBtn = document.getElementById('profileBtn');
 
+// Добавляем новый код для переключения страниц
+const pages = {
+    farm: document.getElementById('farm-page'),
+    shop: document.getElementById('shop-page'),
+    profile: document.getElementById('profile-page')
+};
+
+function switchPage(pageId) {
+    console.log('Switching to page:', pageId);
+    Object.values(pages).forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    pages[pageId].classList.add('active');
+    
+    [farmBtn, shopBtn, profileBtn].forEach(btn => btn.classList.remove('active'));
+    document.getElementById(`${pageId}Btn`).classList.add('active');
+
+    if (pageId === 'shop' && window.initShop) {
+        console.log('Initializing shop...');
+        window.initShop();
+    }
+}
+
 fetch(`/getData?userId=${userId}`)
     .then(response => response.json())
     .then(data => {
@@ -70,14 +94,7 @@ setInterval(() => {
     }
 }, 2000);
 
-farmBtn.addEventListener('click', () => {
-    location.reload();
-});
-
-shopBtn.addEventListener('click', () => {
-    window.location.href = '/shop.html';
-});
-
-profileBtn.addEventListener('click', () => {
-    window.location.href = '/profile.html';
-});
+// Заменяем старые обработчики на новые
+farmBtn.addEventListener('click', () => switchPage('farm'));
+shopBtn.addEventListener('click', () => switchPage('shop'));
+profileBtn.addEventListener('click', () => switchPage('profile'));

@@ -5,23 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Energy Clicker</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/shopstyle.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div class="game-container">
-        <div class="circle" id="clickCircle"></div>
-        
-        <div class="stats-container">
-            <div class="energy-bar-container">
-                <div class="energy-bar">
-                    <div class="energy-fill" id="energyFill"></div>
-                </div>
-                <div class="energy-text">
-                    ⚡ <span id="energyValue">0/0</span>
+    <div class="pages">
+        <!-- Главная страница с фермой -->
+        <div id="farm-page" class="page active">
+            <div class="game-container">
+                <div class="circle" id="clickCircle"></div>
+                <div class="stats-container">
+                    <div class="energy-bar-container">
+                        <div class="energy-bar">
+                            <div class="energy-fill" id="energyFill"></div>
+                        </div>
+                        <div class="energy-text">
+                            ⚡ <span id="energyValue">0/0</span>
+                        </div>
+                    </div>
+                    <div class="balance">
+                        💰 <span id="balanceValue">0</span>
+                    </div>
                 </div>
             </div>
-            <div class="balance">
-                💰 <span id="balanceValue">0</span>
+        </div>
+
+        <!-- Страница магазина -->
+        <div id="shop-page" class="page">
+            <div class="shop-container">
+                <div class="shop-header">МАГАЗИН</div>
+                
+                <div class="shop-items">
+                    <div class="shop-item">
+                        <div class="item-info">
+                            <div class="item-name">+100⚡️ Максимальная энергия</div>
+                            <div class="item-description">Увеличивает максимальный запас энергии на 100</div>
+                        </div>
+                        <div class="item-purchase">
+                            <div class="item-price">💰 <span id="energyUpgradePrice">...</span></div>
+                            <button class="buy-button" id="buyEnergyUpgrade">Купить</button>                    
+                        </div>
+                    </div>
+
+                    <div class="shop-item placeholder">
+                        <div class="item-info">
+                            <div class="item-name">Товар #2</div>
+                            <div class="item-description">Скоро в продаже</div>
+                        </div>
+                        <div class="item-purchase">
+                            <button class="buy-button" disabled>Скоро</button>
+                        </div>
+                    </div>
+
+                    <div class="shop-item placeholder">
+                        <div class="item-info">
+                            <div class="item-name">Товар #3</div>
+                            <div class="item-description">Скоро в продаже</div>
+                        </div>
+                        <div class="item-purchase">
+                            <button class="buy-button" disabled>Скоро</button>
+                        </div>
+                    </div>
+
+                    <div class="shop-item placeholder">
+                        <div class="item-info">
+                            <div class="item-name">Товар #4</div>
+                            <div class="item-description">Скоро в продаже</div>
+                        </div>
+                        <div class="item-purchase">
+                            <button class="buy-button" disabled>Скоро</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница профиля -->
+        <div id="profile-page" class="page">
+            <div class="profile-container">
+                <div class="profile-card">
+                    <div class="profile-avatar">
+                        <img id="userAvatar" src="" alt="Profile Photo">
+                    </div>
+                    <div class="profile-name" id="userName"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -33,5 +100,7 @@
     </nav>
 
     <script src="js/game.js"></script>
+    <script src="js/shop.js"></script>
+    <script src="js/profile.js"></script>
 </body>
 </html>
